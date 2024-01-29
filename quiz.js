@@ -471,8 +471,7 @@ const questions = [
 ];
 
 const uniqueQuestions = questions.filter((question, index) => {
-    const firstIndex = questions.findIndex(q => q.question === question.question);
-    return firstIndex === index;
+    return questions.findIndex(q => q.question === question.question) === index;
 });
 
 function startQuiz() {
@@ -494,11 +493,13 @@ function shuffleQuestions() {
 
 function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
-    questionContainer.textContent = currentQuestion.question;
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = `<p>Question ${currentQuestionIndex + 1}: ${currentQuestion.question}</p>`;
 
     const shuffledOptions = shuffleOptions(currentQuestion.options);
-
+    const optionsContainer = document.getElementById('options-container');
     optionsContainer.innerHTML = '';
+
     for (let i = 0; i < shuffledOptions.length; i++) {
         const option = document.createElement('div');
         option.className = 'option';
@@ -507,6 +508,7 @@ function showQuestion() {
         optionsContainer.appendChild(option);
     }
 }
+
 
 function shuffleOptions(options) {
     for (let i = options.length - 1; i > 0; i--) {
