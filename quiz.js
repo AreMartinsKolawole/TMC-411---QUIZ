@@ -470,6 +470,10 @@ const questions = [
        
 ];
 
+const uniqueQuestions = questions.filter((question, index) => {
+    const firstIndex = questions.findIndex(q => q.question === question.question);
+    return firstIndex === index;
+});
 
 function startQuiz() {
     currentQuestionIndex = 0;
